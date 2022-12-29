@@ -8,14 +8,14 @@ export default function SearchInformation() {
     </form>
   );
   let CityInfo = (
-    <div>
+    <div className="city-info">
       <h1>City name</h1>
       <h3>Data</h3>
       <h2>Icon + Temperature</h2>
     </div>
   );
   let CurrentInfo = (
-    <div>
+    <div className="current-info">
       <ul>
         <li>Temperature: 15°C</li>
         <li>Description:</li>
