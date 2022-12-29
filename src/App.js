@@ -1,4 +1,6 @@
 import "./App.css";
+import HeadCity from "./HeadCity";
+import SearchInformation from "./SearchInformation";
 
 function App() {
   return (
