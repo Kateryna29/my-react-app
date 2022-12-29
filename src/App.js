@@ -9,7 +9,7 @@ function App() {
         <HeadCity />
         <SearchInformation />
       </div>
-      <div className="About-creator">
+      <small className="About-creator">
         <a href="https://github.com/Kateryna29/my-react-app" target="_blank">
           Open-source code
         </a>
@@ -17,7 +17,7 @@ function App() {
         <a href="https://shecodes.io/" target="_blank">
           She Codes
         </a>
-      </div>
+      </small>
     </div>
   );
 }
