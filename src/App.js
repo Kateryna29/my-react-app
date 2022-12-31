@@ -10,11 +10,15 @@ function App() {
         <SearchInformation />
       </div>
       <small className="About-creator">
-        <a href="https://github.com/Kateryna29/my-react-app" target="_blank">
+        <a
+          href="https://github.com/Kateryna29/my-react-app"
+          rel="noreferrer"
+          target="_blank"
+        >
           Open-source code
         </a>
         , by Kateryna Nykonenko from
-        <a href="https://shecodes.io/" target="_blank">
+        <a href="https://shecodes.io/" rel="noreferrer" target="_blank">
           She Codes
         </a>
       </small>

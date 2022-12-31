@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Location from "./Location";
 import Forecast from "./Forecast";
 import DateUnic from "./DateUnic";
 
@@ -10,7 +9,6 @@ export default function SearchInformation() {
   const [weather, setWeather] = useState({});
 
   function displayWeather(response) {
-    setLoaded(true);
     setWeather({
       temperature: response.data.main.temp,
       wind: response.data.wind.speed,
@@ -18,6 +16,7 @@ export default function SearchInformation() {
       icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
       description: response.data.weather[0].description,
     });
+    setLoaded(true);
   }
 
   function handleSubmit(event) {
@@ -61,15 +60,19 @@ export default function SearchInformation() {
     </div>
   );
 
-  return (
-    <div className="Information">
-      {form} <Location />
-      <br />
-      {CityInfo}
-      <br />
-      {CurrentInfo}
-      <br />
-      <Forecast />
-    </div>
-  );
+  if (loaded) {
+    return (
+      <div className="Information">
+        {form}
+        <br />
+        {CityInfo}
+        <br />
+        {CurrentInfo}
+        <br />
+        <Forecast />
+      </div>
+    );
+  } else {
+    return <div className="Information">{form}</div>;
+  }
 }
