@@ -47,11 +47,17 @@ form button {
 .current-info {
   position: relative;
   top: -150px;
-  left: 400px;
+  left: 350px;
   color: var(--main-background-color);
   font-weight: bold;
 }
 .list-of-forecast {
   position: relative;
   top: -120px;
+}
+.icon-temp {
+  font-size: 48px;
+}
+h1 {
+  text-transform: uppercase;
 }
