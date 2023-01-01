@@ -7,6 +7,7 @@ export default function SearchInformation() {
   const [city, setCity] = useState("");
   const [loaded, setLoaded] = useState(false);
   const [weather, setWeather] = useState({});
+  const [forecast, setForecast] = useState({});
 
   function displayWeather(response) {
     setWeather({
@@ -19,46 +20,45 @@ export default function SearchInformation() {
     setLoaded(true);
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    let apiKey = "094780c710fa4efd669f0df8c3991927";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(displayWeather);
-  }
-
   function updateCity(event) {
     setCity(event.target.value);
   }
 
-  function Forecast() {
-    function dailyForecast(response) {
-      let forecast = [7, 15, 23, 31, 39].map((index) => {
-        return {
-          description: forecast[index].weather[0].main,
-          icon: `http://openweathermap.org/img/wn/${forecast[index].weather[0].icon}@2x.png`,
-          precipitation: Math.round(forecast[index].main.humidity) + "%",
-          temperature: Math.round(forecast[index].main.temp),
-          day: new Date(forecast[index].dt * 1000),
-          wind: Math.round(forecast[index].wind.speed) + "km/h",
-        };
-      });
-    }
-    let url = `https://api.openweathermap.org/data/2.5/forecast?appid=c95d60a1e3adbeb286133f1ebebc2579&units=metric&q=${city}`;
-    axios.get(url).then(dailyForecast);
+  function DailyForecast(response) {
+    setForecast = [7, 15, 23, 31, 39].map((index) => {
+      return {
+        description: response.data.list.weather[0].main,
+        icon: `http://openweathermap.org/img/wn/${response.data.list.weather[0].icon}@2x.png`,
+        precipitation: Math.round(response.data.list.main.humidity) + "%",
+        temperature: Math.round(response.data.list.main.temp),
+        day: new Date(response.data.list.dt * 1000).day(true),
+        wind: Math.round(response.data.list.wind.speed) + "km/h",
+      };
+    });
 
     return (
       <div className="row">
-        {dailyForecast.map((weather, index) => {
+        {forecast.map((forecasts, index) => {
           return (
             <div className="col-sm-2" key={index}>
-              <div className="forecast-day">{weather.day}</div>
-              <div className="forecast-icon">{weather.icon}</div>
-              <div className="forecast-temperature">{weather.temperature}°</div>
+              <div className="forecast-day">{forecasts.day}</div>
+              <div className="forecast-icon">{forecasts.icon}</div>
+              <div className="forecast-temperature">
+                {forecasts.temperature}°
+              </div>
             </div>
           );
         })}
       </div>
     );
+  }
+  function handleSubmit(event) {
+    event.preventDefault();
+    let apiKey = "094780c710fa4efd669f0df8c3991927";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayWeather);
+    let url = `https://api.openweathermap.org/data/2.5/forecast?appid=c95d60a1e3adbeb286133f1ebebc2579&units=metric&q=${city}`;
+    axios.get(url).then(DailyForecast);
   }
   /////////////////////////////////////////////
 
@@ -108,7 +108,7 @@ export default function SearchInformation() {
         <br />
         {CurrentInfo}
         <br />
-        {Forecast}
+        DailyForecast()
       </div>
     );
   } else {
