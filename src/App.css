@@ -1,16 +1,23 @@
 :root {
   --main-background-color: rgba(255, 255, 255, 0.8);
 }
-body {
-  background: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
-}
+
 .App {
   margin-left: 50px;
   margin-right: 100px;
   margin-top: 10px;
 }
 .container {
-  background-image: url("/src/background.png");
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgb(222, 168, 248) 0%,
+    rgb(168, 222, 248) 21.8%,
+    rgb(189, 250, 205) 35.6%,
+    rgb(243, 250, 189) 52.9%,
+    rgb(250, 227, 189) 66.8%,
+    rgb(248, 172, 172) 90%,
+    rgb(254, 211, 252) 99.7%
+  );
   border-radius: 20px;
   height: 480px;
   width: 650px;
@@ -48,7 +55,7 @@ form button {
   position: relative;
   top: -150px;
   left: 350px;
-  color: var(--main-background-color);
+
   font-weight: bold;
 }
 .list-of-forecast {

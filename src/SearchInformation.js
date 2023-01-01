@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Forecast from "./Forecast";
+import Location from "./Location";
 import DateUnic from "./DateUnic";
 
 export default function SearchInformation() {
@@ -30,13 +30,52 @@ export default function SearchInformation() {
     setCity(event.target.value);
   }
 
+  function Forecast() {
+    function dailyForecast(response) {
+      let forecast = [7, 15, 23, 31, 39].map((index) => {
+        return {
+          description: forecast[index].weather[0].main,
+          icon: `http://openweathermap.org/img/wn/${forecast[index].weather[0].icon}@2x.png`,
+          precipitation: Math.round(forecast[index].main.humidity) + "%",
+          temperature: Math.round(forecast[index].main.temp),
+          day: new Date(forecast[index].dt * 1000),
+          wind: Math.round(forecast[index].wind.speed) + "km/h",
+        };
+      });
+    }
+    let url = `https://api.openweathermap.org/data/2.5/forecast?appid=c95d60a1e3adbeb286133f1ebebc2579&units=metric&q=${city}`;
+    axios.get(url).then(dailyForecast);
+
+    return (
+      <div className="row">
+        {dailyForecast.map((weather, index) => {
+          return (
+            <div className="col-sm-2" key={index}>
+              <div className="forecast-day">{weather.day}</div>
+              <div className="forecast-icon">{weather.icon}</div>
+              <div className="forecast-temperature">{weather.temperature}°</div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
   /////////////////////////////////////////////
 
   let form = (
-    <form onSubmit={handleSubmit}>
-      <input type="search" placeholder="Enter a city.." onChange={updateCity} />
-      <button type="Submit">Search</button>
-    </form>
+    <div className="search-form">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="search"
+          placeholder="Enter a city.."
+          onChange={updateCity}
+        />
+        <button type="Submit">Search</button>
+      </form>
+      <button>
+        <a href="Location.js">Current location</a>
+      </button>
+    </div>
   );
   let CityInfo = (
     <div className="city-info">
@@ -69,10 +108,15 @@ export default function SearchInformation() {
         <br />
         {CurrentInfo}
         <br />
-        <Forecast />
+        {Forecast}
       </div>
     );
   } else {
-    return <div className="Information">{form}</div>;
+    return (
+      <div className="Information">
+        {form}
+        <Location />;
+      </div>
+    );
   }
 }
