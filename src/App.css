@@ -43,9 +43,18 @@ form {
 }
 form input {
   width: 300px;
+  height: 40px;
+  border: solid;
+  border-color: rgb(148, 148, 180);
+  border-radius: 4px;
+  background-color: lightskyblue;
 }
-form button {
-  margin-right: 10px;
+button {
+  margin-left: 10px;
+  height: 40px;
+  border: groove;
+  background-color: lightskyblue;
+  border-radius: 4px;
 }
 .city-info {
   display: block;

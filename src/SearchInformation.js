@@ -71,10 +71,11 @@ export default function SearchInformation() {
           onChange={updateCity}
         />
         <button type="Submit">Search</button>
+
+        <button>
+          <a href="Location.js">Current location</a>
+        </button>
       </form>
-      <button>
-        <a href="Location.js">Current location</a>
-      </button>
     </div>
   );
   let CityInfo = (
